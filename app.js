@@ -2,7 +2,7 @@
 // Application State
 // ==========================================================================
 let responses = JSON.parse(localStorage.getItem('survey_responses')) || [];
-let googleSheetsUrl = localStorage.getItem('google_sheets_url') || '';
+let googleSheetsUrl = localStorage.getItem('google_sheets_url') || 'https://script.google.com/macros/s/AKfycbw21DC_mJw0cfbMIjgAJhA8H_gM_QhZJ4Z4a-5f3DnzsaOTJQdxI5cz98Q4TLjyHM0o/exec';
 let selectedRating = 0;
 let bgmPlayer;
 let isMusicPlaying = localStorage.getItem('bgm_playing') !== 'false';
