@@ -2,7 +2,14 @@
 // Application State
 // ==========================================================================
 let responses = JSON.parse(localStorage.getItem('survey_responses')) || [];
-let googleSheetsUrl = localStorage.getItem('google_sheets_url') || 'https://script.google.com/macros/s/AKfycbw21DC_mJw0cfbMIjgAJhA8H_gM_QhZJ4Z4a-5f3DnzsaOTJQdxI5cz98Q4TLjyHM0o/exec';
+const DEFAULT_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbw21DC_mJw0cfbMIjgAJhA8H_gM_QhZJ4Z4a-5f3DnzsaOTJQdxI5cz98Q4TLjyHM0o/exec';
+let googleSheetsUrl = localStorage.getItem('google_sheets_url');
+
+// 自動遷移舊版或空網址，確保使用最新雲端連結
+if (!googleSheetsUrl || googleSheetsUrl.indexOf('AKfycbw21DC_mJw0cfbMIjgAJhA8H_gM_QhZJ4Z4a-5f3DnzsaOTJQdxI5cz98Q4TLjyHM0o') === -1) {
+    googleSheetsUrl = DEFAULT_SHEETS_URL;
+    localStorage.setItem('google_sheets_url', DEFAULT_SHEETS_URL);
+}
 let selectedRating = 0;
 let bgmPlayer;
 let isMusicPlaying = localStorage.getItem('bgm_playing') !== 'false';
