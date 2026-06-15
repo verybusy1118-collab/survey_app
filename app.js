@@ -2,11 +2,11 @@
 // Application State
 // ==========================================================================
 let responses = JSON.parse(localStorage.getItem('survey_responses')) || [];
-const DEFAULT_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbw21DC_mJw0cfbMIjgAJhA8H_gM_QhZJ4Z4a-5f3DnzsaOTJQdxI5cz98Q4TLjyHM0o/exec';
+const DEFAULT_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyVRYJMF84__U5wBB3wu5tugLNG01lg0P-xeqQdGD_rmRT2NZXmxXV_dTCUpdGara1c/exec';
 let googleSheetsUrl = localStorage.getItem('google_sheets_url');
 
 // 自動遷移舊版或空網址，確保使用最新雲端連結
-if (!googleSheetsUrl || googleSheetsUrl.indexOf('AKfycbw21DC_mJw0cfbMIjgAJhA8H_gM_QhZJ4Z4a-5f3DnzsaOTJQdxI5cz98Q4TLjyHM0o') === -1) {
+if (!googleSheetsUrl || googleSheetsUrl.indexOf('AKfycbyVRYJMF84__U5wBB3wu5tugLNG01lg0P-xeqQdGD_rmRT2NZXmxXV_dTCUpdGara1c') === -1) {
     googleSheetsUrl = DEFAULT_SHEETS_URL;
     localStorage.setItem('google_sheets_url', DEFAULT_SHEETS_URL);
 }
