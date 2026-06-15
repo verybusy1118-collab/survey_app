@@ -886,14 +886,20 @@ function renderResponsesTable() {
     
     tableBody.innerHTML = '';
 
-    // Filter responses
+    // Filter responses with safety guards for undefined/null fields
     const filteredResponses = responses.filter(r => {
+        const name = r.name || '';
+        const takeaways = r.takeaways || '';
+        const impactfulActivity = r.impactfulActivity || '';
+        const padletFeedback = r.padletFeedback || '';
+        const instructorFeedback = r.instructorFeedback || '';
+        
         return (
-            r.name.toLowerCase().includes(searchQuery) ||
-            r.takeaways.toLowerCase().includes(searchQuery) ||
-            r.impactfulActivity.toLowerCase().includes(searchQuery) ||
-            (r.padletFeedback && r.padletFeedback.toLowerCase().includes(searchQuery)) ||
-            r.instructorFeedback.toLowerCase().includes(searchQuery)
+            name.toLowerCase().includes(searchQuery) ||
+            takeaways.toLowerCase().includes(searchQuery) ||
+            impactfulActivity.toLowerCase().includes(searchQuery) ||
+            padletFeedback.toLowerCase().includes(searchQuery) ||
+            instructorFeedback.toLowerCase().includes(searchQuery)
         );
     });
 
