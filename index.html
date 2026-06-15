@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20260618中小綜聯席會議 - 綜謝有你</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating Decorative Bamboo Leaves -->
+    <div class="decorations">
+        <div class="leaf leaf-1">🍃</div>
+        <div class="leaf leaf-2">🍃</div>
+        <div class="leaf leaf-3">🍃</div>
+        <div class="leaf leaf-4">🍃</div>
+    </div>
+
+    <!-- Quick Navigation (Admin / Survey Toggle) -->
+    <header class="app-header">
+        <div class="header-logo">
+            <span class="logo-emoji">🎋</span>
+            <span class="logo-text">端午特別企劃</span>
+        </div>
+        <div class="header-actions">
+            <button id="music-toggle-btn" class="btn btn-icon" title="播放音樂">
+                <i data-lucide="music" id="music-icon"></i>
+            </button>
+            <button id="toggle-dashboard-btn" class="btn btn-secondary">
+                <i data-lucide="layout-dashboard"></i> <span>講師後台</span>
+            </button>
+            <button id="open-settings-btn" class="btn btn-icon" title="系統設定">
+                <i data-lucide="settings"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <!-- 1. SURVEY SECTION -->
+        <section id="survey-section" class="card main-card active">
+            <div class="card-header text-center" style="margin-top: 15px;">
+                <h1 class="survey-title">20260618中小綜聯席會議</h1>
+                <p class="survey-subtitle">綜夏體驗，聽聽您的學習收穫！填寫即可獲得端午祝福唷 🎋</p>
+            </div>
+
+            <form id="survey-form" novalidate>
+                <!-- Question 1: Name -->
+                <div class="form-group">
+                    <label for="input-name" class="form-label">
+                        <span class="label-number">1</span> 您的姓名
+                        <span class="required-badge">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <i data-lucide="user" class="input-icon"></i>
+                        <input type="text" id="input-name" required placeholder="請輸入您的姓名或暱稱" autocomplete="name">
+                    </div>
+                    <div class="error-message">請填寫您的姓名唷！</div>
+                </div>
+
+                <!-- Question 2: Takeaways -->
+                <div class="form-group">
+                    <label for="input-takeaways" class="form-label">
+                        <span class="label-number">2</span> 本日學習的收穫
+                        <span class="required-badge">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <i data-lucide="book-open" class="input-icon textarea-icon"></i>
+                        <textarea id="input-takeaways" required placeholder="今天哪一個觀念、技巧或工具最讓您有收穫？寫下您的心得吧..."></textarea>
+                    </div>
+                    <div class="error-message">請分享一點點您的收穫嘛～</div>
+                </div>
+
+                <!-- Question 3: Most Impactful Activity -->
+                <div class="form-group">
+                    <label for="input-activity" class="form-label">
+                        <span class="label-number">3</span> 本日最有感的活動項目
+                        <span class="required-badge">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <i data-lucide="award" class="input-icon"></i>
+                        <input type="text" id="input-activity" required placeholder="請填寫今天哪一個活動項目最讓您有感？">
+                    </div>
+                    <div class="error-message">請填寫您最有感的活動項目唷！</div>
+                </div>
+
+                <!-- Question 4: Padlet thoughts/questions -->
+                <div class="form-group">
+                    <label for="input-padlet" class="form-label">
+                        <span class="label-number">4</span> 對 PADLET 的感想或疑問
+                        <span class="required-badge">*</span>
+                    </label>
+                    
+                    <!-- Zongzi Rating Row -->
+                    <div class="rating-container">
+                        <p class="rating-label">操作順暢度評分：</p>
+                        <div class="zongzi-rating" id="padlet-rating">
+                            <button type="button" class="rating-zongzi" data-value="1" title="有待加強">
+                                <span class="zongzi-icon">🍙</span>
+                            </button>
+                            <button type="button" class="rating-zongzi" data-value="2" title="稍嫌複雜">
+                                <span class="zongzi-icon">🍙</span>
+                            </button>
+                            <button type="button" class="rating-zongzi" data-value="3" title="普通順手">
+                                <span class="zongzi-icon">🍙</span>
+                            </button>
+                            <button type="button" class="rating-zongzi" data-value="4" title="蠻好操作的">
+                                <span class="zongzi-icon">🍙</span>
+                            </button>
+                            <button type="button" class="rating-zongzi" data-value="5" title="非常直覺好上手">
+                                <span class="zongzi-icon">🍙</span>
+                            </button>
+                        </div>
+                        <span id="rating-desc" class="rating-desc">點擊粽子評分</span>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <i data-lucide="help-circle" class="input-icon textarea-icon"></i>
+                        <textarea id="input-padlet" placeholder="在操作 Padlet 時，是否有遇到什麼困難、想法或希望再深入了解的功能呢？"></textarea>
+                    </div>
+                    <div class="error-message">請選擇粽子評分並填寫您的感想或疑問唷！</div>
+                </div>
+
+                <!-- Question 5: Instructor Feedback -->
+                <div class="form-group">
+                    <label for="input-instructor" class="form-label">
+                        <span class="label-number">5</span> 給講師的一句回饋
+                        <span class="required-badge">*</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <i data-lucide="heart" class="input-icon"></i>
+                        <input type="text" id="input-instructor" required placeholder="寫下一句您想對講師說的悄悄話或感謝鼓勵吧！">
+                    </div>
+                    <div class="error-message">給講師一句溫暖的回饋吧！</div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="submit-btn" class="btn btn-primary btn-block">
+                        <i data-lucide="send"></i> <span>送出問卷，包中好運！</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- 2. SUCCESS SECTION -->
+        <section id="success-section" class="card main-card text-center">
+            <div class="success-illustration">
+                <img src="assets/zongzi_success.png?v=2" alt="慶祝粽子" class="success-mascot-img animate-cheer">
+            </div>
+            <h1 class="success-title">🎉 粽謝您的填寫！</h1>
+            
+            <!-- Animated Custom Greetings Card -->
+            <div class="greetings-pun-card">
+                <span class="pun-emoji">🍙</span>
+                <span class="pun-text" id="pun-text">萬事包「綜」</span>
+                <span class="pun-emoji">🎉</span>
+            </div>
+
+            <p class="success-text" id="success-greeting-sub">謝謝您的回饋，祝您端午佳節愉快！</p>
+            
+            <!-- Gashapon Notice Card -->
+            <div class="gashapon-notice-card">
+                <span class="gashapon-icon">🔮</span>
+                <span class="gashapon-text">記得來個好運扭蛋唷！</span>
+                <span class="gashapon-icon">🔮</span>
+            </div>
+            
+            <div class="google-sync-status" id="success-sync-status">
+                <i data-lucide="cloud-lightning" class="sync-icon loading"></i>
+                <span class="sync-text">正在同步至 Google 雲端試算表...</span>
+            </div>
+
+            <div class="success-actions">
+                <button id="btn-fill-another" class="btn btn-secondary">
+                    <i data-lucide="refresh-cw"></i> 再填一份
+                </button>
+                <button id="btn-success-dashboard" class="btn btn-primary">
+                    <i data-lucide="layout-dashboard"></i> 檢視後台數據
+                </button>
+            </div>
+        </section>
+
+        <!-- 3. DASHBOARD SECTION -->
+        <section id="dashboard-section" class="card main-card">
+            <div class="dashboard-header">
+                <div>
+                    <h1 class="dashboard-title">講師專屬後台</h1>
+                    <p class="dashboard-subtitle">即時掌握學員填答數據與學習回饋</p>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button id="btn-refresh-dashboard" class="btn btn-secondary" title="重新整理雲端資料">
+                        <i data-lucide="refresh-cw" id="refresh-icon"></i> <span>同步雲端</span>
+                    </button>
+                    <button id="btn-back-to-survey" class="btn btn-secondary">
+                        <i data-lucide="arrow-left"></i> 返回問卷
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Stats Summary -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper blue">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-total-responses">0</span>
+                        <span class="stat-label">填答總人數</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper green">
+                        <i data-lucide="cloud-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-sync-percentage">0%</span>
+                        <span class="stat-label">Google 同步率</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper gold">
+                        <i data-lucide="star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="stat-avg-rating">0.0</span>
+                        <span class="stat-label">Padlet 平均滿意度</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualization / Activity Analysis -->
+            <div class="dashboard-grid">
+                <div class="data-box chart-box">
+                    <h3 class="box-title"><i data-lucide="bar-chart-3"></i> 最有感活動統計</h3>
+                    <div class="activity-bars-container" id="activity-chart-bars">
+                        <!-- Bars dynamically loaded by JS -->
+                    </div>
+                </div>
+                <div class="data-box sync-status-box">
+                    <h3 class="box-title"><i data-lucide="cloud"></i> 雲端同步設定狀態</h3>
+                    <div class="sync-status-details">
+                        <div class="status-indicator-row">
+                            <span class="status-dot" id="sheet-status-dot"></span>
+                            <span class="status-text" id="sheet-status-text">未設定 Google 雲端連線</span>
+                        </div>
+                        <p class="status-help-text">在設定中填入您的 Google Apps Script Web App URL，即可將填答結果即時寫入 Google 試算表。</p>
+                        <button id="btn-dashboard-settings" class="btn btn-secondary btn-sm">
+                            <i data-lucide="sliders"></i> 點此前往設定
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Responses Table Section -->
+            <div class="responses-section">
+                <div class="responses-header">
+                    <h3 class="box-title"><i data-lucide="list"></i> 學員回饋清單</h3>
+                    <div class="response-controls">
+                        <div class="search-wrapper">
+                            <i data-lucide="search" class="search-icon"></i>
+                            <input type="text" id="search-input" placeholder="搜尋姓名或關鍵字...">
+                        </div>
+                        <button id="btn-export-csv" class="btn btn-primary btn-sm">
+                            <i data-lucide="download"></i> 匯出 CSV 檔
+                        </button>
+                        <button id="btn-clear-data" class="btn btn-danger btn-sm" title="清除所有資料">
+                            <i data-lucide="trash-2"></i> 清除
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="responses-table">
+                        <thead>
+                            <tr>
+                                <th>填答時間</th>
+                                <th>姓名</th>
+                                <th>學習收穫</th>
+                                <th>最有感活動</th>
+                                <th>Padlet 想法 (評分)</th>
+                                <th>給講師的回饋</th>
+                                <th>同步狀態</th>
+                            </tr>
+                        </thead>
+                        <tbody id="responses-table-body">
+                            <!-- Rows dynamically populated -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="empty-state" id="empty-responses-state">
+                    <i data-lucide="inbox" class="empty-icon"></i>
+                    <p>目前尚無填答資料。填寫問卷或點擊下方按鈕載入模擬資料測試！</p>
+                    <button id="btn-seed-data-dashboard" class="btn btn-secondary btn-sm">
+                        <i data-lucide="database"></i> 載入模擬測試資料
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 4. SETTINGS MODAL -->
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-card animate-slideup">
+            <div class="modal-header">
+                <h3><i data-lucide="settings"></i> 系統串接與設定</h3>
+                <button id="close-settings-btn-x" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-group">
+                    <label for="setting-sheets-url" class="settings-label">
+                        Google Sheets Web App URL
+                    </label>
+                    <p class="settings-help">
+                        請輸入您在 Google 試算表中部署的 Web App URL：
+                    </p>
+                    <input type="url" id="setting-sheets-url" placeholder="https://script.google.com/macros/s/.../exec">
+                    
+                    <div class="settings-actions">
+                        <button id="btn-test-sheet" class="btn btn-secondary btn-sm">
+                            測試連線
+                        </button>
+                        <span id="sheet-test-result" class="test-result-label"></span>
+                    </div>
+                </div>
+
+                <hr class="settings-divider">
+
+                <div class="settings-group">
+                    <label class="settings-label">
+                        背景音樂設定 (BGM Settings)
+                    </label>
+                    <p class="settings-help">
+                        您可以選擇上傳本地音樂檔案 (.mp3) 作為背景配樂：
+                    </p>
+                    <div style="margin: 4px 0;">
+                        <!-- Hidden native file input -->
+                        <input type="file" id="setting-bgm-file" accept="audio/mp3,audio/*" style="display: none;">
+                        <button type="button" id="btn-upload-bgm" class="btn btn-secondary btn-block" style="border: 2px dashed var(--primary-light);">
+                            <i data-lucide="upload-cloud"></i> <span>選擇本地音樂檔案 (.mp3)</span>
+                        </button>
+                        <p id="upload-status" class="settings-help" style="margin-top: 6px; font-weight: 600; color: var(--primary-color); text-align: center;"></p>
+                        <button type="button" id="btn-clear-bgm-file" class="btn btn-danger btn-sm hidden" style="margin-top: 6px; width: 100%;">
+                            <i data-lucide="rotate-ccw"></i> 還原為預設配樂
+                        </button>
+                    </div>
+                </div>
+
+                <hr class="settings-divider">
+
+                <div class="settings-group">
+                    <label class="settings-label">測試與開發工具</label>
+                    <p class="settings-help">您可以使用以下按鈕一鍵產生模擬學員資料，方便快速預覽講師後台報表成果：</p>
+                    <div class="button-row">
+                        <button id="btn-seed-data" class="btn btn-secondary btn-sm">
+                            <i data-lucide="database"></i> 載入模擬學員資料
+                        </button>
+                        <button id="btn-clear-data-settings" class="btn btn-danger btn-sm">
+                            <i data-lucide="trash-2"></i> 清空所有數據
+                        </button>
+                    </div>
+                </div>
+
+                <div class="google-instructions">
+                    <h4>💡 如何快速連結到 Google 試算表？</h4>
+                    <ol>
+                        <li>在您的 Google 雲端硬碟建立一個新的「Google 試算表」。</li>
+                        <li>點選上方選單的 <strong>擴充功能 (Extensions)</strong> &gt; <strong>Apps Script</strong>。</li>
+                        <li>清除預設代碼，貼上專案設計的 Google Apps Script 程式碼（可於 Walkthrough 文件中複製）。</li>
+                        <li>點選右上角的 <strong>部署 (Deploy)</strong> &gt; <strong>新增部署 (New deployment)</strong>。</li>
+                        <li>類型選擇 <strong>網頁應用程式 (Web app)</strong>。</li>
+                        <li><strong>誰有權限存取 (Who has access)</strong> 務必選擇 <strong>任何人 (Anyone)</strong>。</li>
+                        <li>部署後複製產生的「網頁應用程式網址」，貼到上方欄位並儲存即可！</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-save-settings" class="btn btn-primary">儲存設定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Simple footer footer -->
+    <footer class="app-footer-bar">
+        <p>© 2026 端午特別企劃 🎋 粽謝有你學習問卷調查系統</p>
+    </footer>
+
+    <!-- Background Music Audio Player -->
+    <audio id="bgm-player" loop src="bgm.mp3"></audio>
+
+    <!-- 6. PASSWORD AUTH MODAL -->
+    <div id="password-modal" class="modal-overlay">
+        <div class="modal-card animate-slideup" style="max-width: 380px;">
+            <div class="modal-header">
+                <h3><i data-lucide="lock" style="color: var(--danger);"></i> 講師身份驗證</h3>
+                <button id="close-password-btn-x" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body text-center" style="padding: 20px 24px;">
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">進入講師專屬後台需要身分驗證，請輸入管理密碼：</p>
+                <div class="input-wrapper">
+                    <i data-lucide="key" class="input-icon"></i>
+                    <input type="password" id="input-admin-password" placeholder="請輸入後台密碼" required>
+                </div>
+                <div id="password-error-msg" class="error-message" style="margin-top: 10px; font-weight: 700; color: var(--danger); display: none;">密碼錯誤，拒絕存取！</div>
+            </div>
+            <div class="modal-footer" style="padding: 12px 24px;">
+                <button id="btn-submit-password" class="btn btn-primary btn-block">
+                    確認送出
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Fixed Viewport Mascots (Two crossing Zongzis like anime assistants) -->
+    <div class="mascot-wrapper mascot-wrapper-1" style="display: block;">
+        <img src="assets/zongzi_mascot.png?v=4" alt="可愛粽子吉祥物1" class="mascot-img animate-walk">
+    </div>
+    <div class="mascot-wrapper mascot-wrapper-2" style="display: block;">
+        <img src="assets/zongzi_mascot.png?v=4" alt="可愛粽子吉祥物2" class="mascot-img animate-walk">
+    </div>
+
+    <!-- App Logic -->
+    <script src="app.js?v=7"></script>
+</body>
+</html>

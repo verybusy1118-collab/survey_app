@@ -1,0 +1,9 @@
+# Temp files / scripts
+bgm.mp3.mp3
+check_trans.ps1
+floodfill.ps1
+transparent.ps1
+
+# OS metadata
+.DS_Store
+Thumbs.db
