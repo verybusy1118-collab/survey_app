@@ -42,6 +42,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event Listeners
     setupEventListeners();
 
+    // Update initial BGM button state based on preference
+    const musicIcon = document.getElementById('music-icon');
+    const musicBtn = document.getElementById('music-toggle-btn');
+    if (musicIcon && musicBtn) {
+        if (isMusicPlaying) {
+            musicIcon.setAttribute('data-lucide', 'music');
+            musicBtn.title = '暫停音樂';
+        } else {
+            musicIcon.setAttribute('data-lucide', 'music-off');
+            musicBtn.title = '播放音樂';
+        }
+        lucide.createIcons();
+    }
+
     // Play BGM on first user interaction
     const initBgmPlay = () => {
         hasUserInteracted = true;
@@ -247,8 +261,14 @@ function setupEventListeners() {
 function playMusic() {
     if (bgmPlayer) {
         bgmPlayer.play().then(() => {
-            document.getElementById('music-icon').classList.add('rotate-music');
-            document.getElementById('music-toggle-btn').title = '暫停音樂';
+            const icon = document.getElementById('music-icon');
+            if (icon) {
+                icon.setAttribute('data-lucide', 'music');
+                icon.classList.add('rotate-music');
+            }
+            const btn = document.getElementById('music-toggle-btn');
+            if (btn) btn.title = '暫停音樂';
+            lucide.createIcons();
         }).catch(err => {
             console.log("播放被瀏覽器阻擋，將於使用者操作後播放", err);
         });
@@ -258,8 +278,14 @@ function playMusic() {
 function pauseMusic() {
     if (bgmPlayer) {
         bgmPlayer.pause();
-        document.getElementById('music-icon').classList.remove('rotate-music');
-        document.getElementById('music-toggle-btn').title = '播放音樂';
+        const icon = document.getElementById('music-icon');
+        if (icon) {
+            icon.setAttribute('data-lucide', 'music-off');
+            icon.classList.remove('rotate-music');
+        }
+        const btn = document.getElementById('music-toggle-btn');
+        if (btn) btn.title = '播放音樂';
+        lucide.createIcons();
     }
 }
 
