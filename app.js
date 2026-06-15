@@ -758,8 +758,27 @@ async function fetchResponsesFromSheets() {
         if (result && result.status === 'success' && Array.isArray(result.data)) {
             const fetched = result.data;
             
-            // Merge logic: Use fetched items, append local items if their ID is not present
-            const merged = [...fetched];
+            // 智慧合併邏輯：優先使用雲端資料，但若雲端欄位為空值且本地有值，則保留本地欄位值（防止舊版寫入的空文字覆蓋本地紀錄）
+            const merged = [];
+            
+            // 1. 處理所有從雲端取得的資料，並與本地對應資料進行欄位層級合併
+            fetched.forEach(f => {
+                const localMatch = responses.find(l => l.id === f.id);
+                if (localMatch) {
+                    const mergedItem = { ...f };
+                    for (let key in localMatch) {
+                        // 如果雲端該欄位為空 (null, undefined, 或空字串)，但本地有值，則以本地為主
+                        if ((mergedItem[key] === undefined || mergedItem[key] === null || mergedItem[key] === '') && localMatch[key]) {
+                            mergedItem[key] = localMatch[key];
+                        }
+                    }
+                    merged.push(mergedItem);
+                } else {
+                    merged.push(f);
+                }
+            });
+            
+            // 2. 將僅存在於本地（尚未同步成功）的資料加入合併清單
             responses.forEach(localItem => {
                 const exists = fetched.some(f => f.id === localItem.id);
                 if (!exists) {
