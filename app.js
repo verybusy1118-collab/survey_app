@@ -900,13 +900,13 @@ function renderResponsesTable() {
     
     tableBody.innerHTML = '';
 
-    // Filter responses with safety guards for undefined/null fields
+    // Filter responses with safety guards and String casting to prevent type errors on numbers/dates
     const filteredResponses = responses.filter(r => {
-        const name = r.name || '';
-        const takeaways = r.takeaways || '';
-        const impactfulActivity = r.impactfulActivity || '';
-        const padletFeedback = r.padletFeedback || '';
-        const instructorFeedback = r.instructorFeedback || '';
+        const name = String(r.name || '');
+        const takeaways = String(r.takeaways || '');
+        const impactfulActivity = String(r.impactfulActivity || '');
+        const padletFeedback = String(r.padletFeedback || '');
+        const instructorFeedback = String(r.instructorFeedback || '');
         
         return (
             name.toLowerCase().includes(searchQuery) ||
@@ -960,10 +960,11 @@ function renderResponsesTable() {
     }
 }
 
-// Helper to escape HTML tags
+// Helper to escape HTML tags with String casting
 function escapeHTML(str) {
-    if (!str) return '';
-    return str.replace(/[&<>'"]/g, 
+    if (str === null || str === undefined) return '';
+    const s = String(str);
+    return s.replace(/[&<>'"]/g, 
         tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
     );
 }
