@@ -783,6 +783,7 @@ async function fetchResponsesFromSheets() {
         }
     } catch (err) {
         console.error('Error fetching responses from cloud:', err);
+        logDebugError('雲端資料同步連線失敗 (Cloud Fetch Failed)', err);
         showToast('雲端同步失敗，將載入本地數據。請確認 Apps Script 部署設定！', 'error');
         
         if (statusDot) {
@@ -791,6 +792,16 @@ async function fetchResponsesFromSheets() {
         if (statusText) {
             statusText.innerText = '雲端同步失敗，顯示本地數據';
         }
+    }
+}
+
+// 系統偵錯日誌輸出
+function logDebugError(msg, err) {
+    const panel = document.getElementById('dashboard-debug-panel');
+    const output = document.getElementById('debug-log-output');
+    if (panel && output) {
+        panel.style.display = 'block';
+        output.innerText += `[${new Date().toLocaleTimeString()}] ${msg}: ${err ? err.stack || err.message || err : ''}\n`;
     }
 }
 
@@ -825,6 +836,7 @@ function renderDashboard() {
             renderActivityChart(totalCount);
         } catch (e) {
             console.error('Error rendering activity chart:', e);
+            logDebugError('活動圖表分析渲染出錯 (Chart Render Error)', e);
         }
 
         // 3. Render Responses Table
@@ -832,9 +844,11 @@ function renderDashboard() {
             renderResponsesTable();
         } catch (e) {
             console.error('Error rendering responses table:', e);
+            logDebugError('回饋資料表格渲染出錯 (Table Render Error)', e);
         }
     } catch (err) {
         console.error('Error in renderDashboard:', err);
+        logDebugError('後台儀表板渲染出錯 (Dashboard Render Error)', err);
     }
 }
 
